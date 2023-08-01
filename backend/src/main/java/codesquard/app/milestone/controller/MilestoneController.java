@@ -21,7 +21,8 @@ public class MilestoneController {
 	}
 
 	@PostMapping("/api/milestones")
-	public ResponseEntity<MilestoneSavedResponse> save(@Valid @RequestBody MilestoneSavedRequest milestoneSavedRequest) {
+	public ResponseEntity<MilestoneSavedResponse> save(
+		@Valid @RequestBody MilestoneSavedRequest milestoneSavedRequest) {
 		Long milestoneId = milestoneService.saveMilestone(milestoneSavedRequest);
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(MilestoneSavedResponse.success(true, milestoneId));
