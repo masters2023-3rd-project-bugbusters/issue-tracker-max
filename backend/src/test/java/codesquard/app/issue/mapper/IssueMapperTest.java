@@ -74,7 +74,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		IssueFilterRequest issueFilterRequest = new IssueFilterRequest();
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(3);
@@ -92,7 +92,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setAuthor("user1");
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(1);
@@ -112,7 +112,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setAssignee(loginId);
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(count);
@@ -133,7 +133,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setLabel(List.of(label));
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(count);
@@ -153,7 +153,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setLabel(List.of("docs", "bug"));
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(2);
@@ -172,7 +172,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setMilestone(milestone);
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(count);
@@ -192,7 +192,7 @@ class IssueMapperTest extends IntegrationTestSupport {
 		issueFilterRequest.setMentions(loginId);
 
 		// when
-		final List<IssuesResponse> issues = issueMapper.getIssues(issueFilterRequest);
+		final List<IssuesResponse> issues = issueMapper.countIssues(issueFilterRequest);
 
 		// then
 		assertThat(issues).hasSize(count);

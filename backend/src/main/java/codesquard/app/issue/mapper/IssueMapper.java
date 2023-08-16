@@ -11,11 +11,14 @@ import codesquard.app.issue.mapper.response.filters.response.MultiFilterAssignee
 import codesquard.app.issue.mapper.response.filters.response.MultiFilterAuthor;
 import codesquard.app.issue.mapper.response.filters.response.MultiFilterLabel;
 import codesquard.app.issue.mapper.response.filters.response.MultiFilterMilestone;
+import codesquard.app.util.Page;
 
 @Mapper
 public interface IssueMapper {
 
-	List<IssuesResponse> getIssues(IssueFilterRequest request);
+	Integer countIssues(IssueFilterRequest request);
+
+	List<IssuesResponse> getIssues(@Param("request") IssueFilterRequest request, @Param("page") Page page);
 
 	List<MultiFilterAssignee> getMultiFiltersAssignees(@Param("check") boolean check,
 		@Param("request") IssueFilterRequest request);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,8 +46,11 @@ public class IssueController {
 
 	@GetMapping()
 	public ApiResponse<IssueFilterResponse> listIssues(@ModelAttribute IssueFilterRequest request,
-		@Login AuthenticateUser user) {
-		return ApiResponse.ok(issueQueryService.findFilterIssues(user.toEntity().getLoginId(), request));
+		@Login AuthenticateUser user, @RequestParam(value = "page", required = false) Integer currentPage) {
+		if (currentPage == null) {
+			currentPage = 1;
+		}
+		return ApiResponse.ok(issueQueryService.findFilterIssues(user.toEntity().getLoginId(), request, currentPage));
 	}
 
 	@GetMapping("/{issueId}")

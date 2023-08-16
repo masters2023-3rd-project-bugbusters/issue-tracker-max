@@ -47,8 +47,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // MyBatis
-//    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test'
-//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
 
     // AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE'

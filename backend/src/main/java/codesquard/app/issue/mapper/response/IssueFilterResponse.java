@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import codesquard.app.issue.mapper.response.filters.MultiFilters;
 import codesquard.app.issue.mapper.response.filters.response.SingleFilter;
+import codesquard.app.util.Page;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -36,5 +37,8 @@ public class IssueFilterResponse {
 
 	@JsonProperty("multiFilters")
 	private MultiFilters multiFilters;
+
+	@JsonProperty("page")
+	private Page page;
 
 }

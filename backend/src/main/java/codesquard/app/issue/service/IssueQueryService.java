@@ -30,6 +30,7 @@ import codesquard.app.issue.repository.IssueRepository;
 import codesquard.app.label.repository.LabelRepository;
 import codesquard.app.milestone.repository.MilestoneRepository;
 import codesquard.app.user_reaction.repository.UserReactionRepository;
+import codesquard.app.util.Page;
 import lombok.RequiredArgsConstructor;
 
 @Transactional(readOnly = true)
@@ -90,13 +91,15 @@ public class IssueQueryService {
 	}
 
 	// Issue Filtering
-	public IssueFilterResponse findFilterIssues(String loginId, IssueFilterRequest request) {
+	public IssueFilterResponse findFilterIssues(String loginId, IssueFilterRequest request, int currentPage) {
 		Map<String, Long> counts = countIssuesByStatus();
+		int total = countIssues(loginId, request);
+		Page page = new Page(currentPage, total);
 
 		return new IssueFilterResponse(generateInput(request), counts.get(IssueStatus.OPENED.name()),
 			counts.get(IssueStatus.CLOSED.name()), labelRepository.countAll(), milestoneRepository.countAll(),
-			findIssues(loginId, request), generateSingleFilters(request),
-			checkMultiFilters(multiFiltersCheck, request));
+			findIssuesByPage(loginId, request, page), generateSingleFilters(request),
+			checkMultiFilters(multiFiltersCheck, request), page);
 	}
 
 	private String generateInput(IssueFilterRequest request) {
@@ -134,8 +137,12 @@ public class IssueQueryService {
 			IssueStatus.CLOSED.name(), issueRepository.countIssueByStatus(IssueStatus.CLOSED));
 	}
 
-	private List<IssuesResponse> findIssues(String loginId, IssueFilterRequest request) {
-		return issueMapper.getIssues(request.convertMe(loginId));
+	private int countIssues(String loginId, IssueFilterRequest request) {
+		return issueMapper.countIssues(request.convertMe(loginId));
+	}
+
+	private List<IssuesResponse> findIssuesByPage(String loginId, IssueFilterRequest request, Page page) {
+		return issueMapper.getIssues(request.convertMe(loginId), page);
 	}
 
 	public List<SingleFilter> generateSingleFilters(IssueFilterRequest request) {
