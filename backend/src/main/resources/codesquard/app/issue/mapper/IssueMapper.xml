@@ -100,7 +100,7 @@
                                 WHERE label.`name` IN
                                 <foreach item="name" index="index" collection="request.label" open="(" separator=","
                                          close=")">
-                                    #{request.name}
+                                    #{name}
                                 </foreach>
                                 GROUP BY issue_label.`issue_id`
                                 HAVING COUNT(issue_label.`issue_id`) >= ${request.label.size})
