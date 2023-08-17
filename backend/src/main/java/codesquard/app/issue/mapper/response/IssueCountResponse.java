@@ -2,6 +2,7 @@ package codesquard.app.issue.mapper.response;
 
 import java.util.List;
 
+import codesquard.app.issue.entity.IssueStatus;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class IssueCountResponse {
 	}
 
 	public int getOpenedIssueCount() {
-		if (issueCounts.get(0).isStatus("OPENED")) {
+		if (issueCounts.get(0).isStatus(IssueStatus.OPENED.name())) {
 			return issueCounts.get(0).getCount();
 		} else if (issueCounts.size() < 2) {
 			return 0;
@@ -26,7 +27,7 @@ public class IssueCountResponse {
 	}
 
 	public int getClosedIssueCount() {
-		if (issueCounts.get(0).isStatus("CLOSED")) {
+		if (issueCounts.get(0).isStatus(IssueStatus.CLOSED.name())) {
 			return issueCounts.get(0).getCount();
 		} else if (issueCounts.size() < 2) {
 			return 0;
