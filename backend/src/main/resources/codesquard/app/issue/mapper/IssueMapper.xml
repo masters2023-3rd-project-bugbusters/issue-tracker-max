@@ -207,8 +207,8 @@
     </select>
 
     <select id="countIssues" parameterType="codesquard.app.issue.mapper.request.IssueFilterRequest"
-            resultType="java.lang.Integer">
-        SELECT COUNT(issue.`id`)
+            resultType="codesquard.app.issue.mapper.response.IssueCount">
+        SELECT issue.`status` AS status, IFNULL(COUNT(issue.`id`), 0) AS count
         FROM issue AS issue
         LEFT OUTER JOIN (SELECT `issue_id`, COUNT(`id`) AS comment_count FROM comment GROUP BY `issue_id`) AS comment
         ON comment.`issue_id` = issue.id
@@ -219,9 +219,6 @@
         <where>
             issue.`is_deleted` = 0
             <choose>
-                <when test="is == null and milestone == null and author == null and assignee == null and label == null and mentions == null">
-                    AND issue.`status` = "OPENED"
-                </when>
                 <otherwise>
                     <if test="is != null">
                         AND issue.`status` = #{is}
@@ -293,6 +290,7 @@
                 </otherwise>
             </choose>
         </where>
+        GROUP BY issue.`status`
     </select>
 
 </mapper>
